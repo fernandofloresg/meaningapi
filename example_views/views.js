@@ -25,7 +25,7 @@ $('#text-content').submit(function(event) {
 			"doc": ""
 		}
 	}
-	//Resultados para guardar 
+	//Resultados para guardar
 
 	$.ajax(settings).done(function (response) {
 		console.log(response); //imprime la respuesta del API
