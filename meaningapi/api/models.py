@@ -17,11 +17,11 @@ class student(models.Model):
 	def __str__(self):
 	    return self.name
 
-class sentimentCard(models.Model):
+class answer(models.Model):
 	text = models.CharField(max_length=200)
 	score_tag = models.CharField(max_length=10)
 	student_id = models.ForeignKey(student, on_delete =models.CASCADE)
 	sentiment_card_id = models.ForeignKey(sentimentCard, on_delete =models.CASCADE)
 
 	def __str__(self):
-	    return self.title
+	    return self.text
