@@ -1,10 +1,15 @@
 const GET_URL = "http://localhost:8000/api/sentimentcard/";
-
+let sentimentCardAvailable = false;
 function getSentimentCard(){
 	$.get(GET_URL, function(data, status){
 		data = data.objects[0]
 		console.log(data);
-		$('#card-media').empty().append('<img height="300px" width="420" src="../' + data.media+ '"">');
+		if(data != undefined){
+			$('#card-media').empty().append('<img height="300px" width="300px" src="../' + data.media+ '"">');
+		}else {
+			$('#card-media').empty().append('<img height="300px" width="300px" src="http://vollrath.com/ClientCss/images/VollrathImages/No_Image_Available.jpg">');
+		}
+		
 	});
 }
 

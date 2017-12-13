@@ -19,6 +19,8 @@ from api.resources import sentimentCardResource
 
 sentiment_card_resource = sentimentCardResource()
 
+admin.site.site_title = admin.site.site_header = 'Meaning Cards '
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(sentiment_card_resource.urls)),
