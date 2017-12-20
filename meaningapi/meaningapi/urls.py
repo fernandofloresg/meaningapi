@@ -15,13 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from api.resources import sentimentCardResource
+from api.resources import sentimentCardResource, answerResource
 
+#Defining resources
 sentiment_card_resource = sentimentCardResource()
-
+answer_resource = answerResource()
 admin.site.site_title = admin.site.site_header = 'Meaning Cards '
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(sentiment_card_resource.urls)),
+    url(r'^api/', include(answer_resource.urls)),
 ]

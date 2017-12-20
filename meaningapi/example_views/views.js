@@ -1,7 +1,9 @@
 const GET_URL = "http://localhost:8000/api/sentimentcard/";
-const GET_UTL = "https://my-json-server.typicode.com/fernandofloresg/demo/db"
+//const GET_UTL = "https://my-json-server.typicode.com/fernandofloresg/demo/db"
+const POST_URL = "http://localhost:8000/api/answer/";
 let sentimentCardAvailable = false;
 let sentimentcard;
+let answer;
 
 function getSentimentCard(){
 	$.get(GET_URL, function(data, status){
@@ -46,15 +48,35 @@ $('#text-content').submit(function(event) {
 		}
 	}
 	//Resultados para guardar
-
+	//get and create results 
 	$.ajax(settings).done(function (response) {
-		console.log(response); //imprime la respuesta del API
-		var answer = getScoreData(response);
+		answer = getScoreData(response);
 		answer.sentiment_card_id = sentimentcard.id;
-		console.log(answer);
+		var fb_session = '{"id" : "1540103879407455","name" : "Fernando Flores García"}'
 		//var student = JSON.parse(window.localStorage.getItem("fb_session")); //to save session
-		//answer.student_id = student.id;
+		var student = JSON.parse(fb_session); //to save session
+		answer.student_id = student.id;
+		answer.name = student.name;
+		console.log(answer);
+
+		console.log(JSON.stringify(answer))
+		var postSettings = {
+			"async": true,
+			"crossDomain": true,
+			"url": POST_URL,
+			"method": "POST",
+			"headers": {
+				"Content-Type": "application/json"
+			},
+			"data": JSON.stringify(answer)
+		}
+	//aquí se envian los resultados para ser guardados en la base de datos
+	$.ajax(postSettings).done(function (response) {
+		console.log(response);
 	});
+});
+
+
 });
 
 function sendData(answer) {
